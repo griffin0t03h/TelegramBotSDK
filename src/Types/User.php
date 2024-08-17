@@ -38,6 +38,7 @@ class User extends BaseType implements TypeInterface
         'can_read_all_group_messages' => true,
         'supports_inline_queries' => true,
         'can_connect_to_business' => true,
+        'has_main_web_app' => true,
     ];
 
     /**
@@ -137,6 +138,16 @@ class User extends BaseType implements TypeInterface
      * @var bool|null
      */
     protected ?bool $canConnectToBusiness = null;
+
+    /**
+     * Optional. True, if the bot has a main Web App.
+     * Returned only in getMe.
+     *
+     * @see \TelegramBotSDK\Api\BotApi::getMe()
+     *
+     * @var bool|null
+     */
+    protected ?bool $hasMainWebApp = null;
 
     /**
      * @return int|float
@@ -388,5 +399,26 @@ class User extends BaseType implements TypeInterface
     public function setCanConnectToBusiness(?bool $canConnectToBusiness): void
     {
         $this->canConnectToBusiness = $canConnectToBusiness;
+    }
+
+    /**
+     * @return bool|null
+     *
+     * @see $hasMainWebApp
+     */
+    public function getHasMainWebApp(): ?bool
+    {
+        return $this->hasMainWebApp;
+    }
+
+    /**
+     * @param bool|null $hasMainWebApp
+     * @return void
+     *
+     * @see $canConnectToBusiness
+     */
+    public function setHasMainWebApp(?bool $hasMainWebApp): void
+    {
+        $this->hasMainWebApp = $hasMainWebApp;
     }
 }
