@@ -27,6 +27,7 @@ class TransactionPartnerUser extends TransactionPartner
         'type' => true,
         'user' => true,
         'invoice_payload' => true,
+        'paid_media' => ArrayOfPaidMedia::class,
     ];
 
     /**
@@ -49,6 +50,13 @@ class TransactionPartnerUser extends TransactionPartner
      * @var string|null
      */
     protected ?string $invoicePayload = null;
+
+    /**
+     * Optional. Information about the paid media bought by the user
+     *
+     * @var PaidMedia[]|null
+     */
+    protected ?array $paidMedia = null;
 
     /**
      * @return User
@@ -82,5 +90,21 @@ class TransactionPartnerUser extends TransactionPartner
     public function setInvoicePayload(?string $invoicePayload): void
     {
         $this->invoicePayload = $invoicePayload;
+    }
+
+    /**
+     * @return PaidMedia[]|null
+     */
+    public function getPaidMedia(): ?array
+    {
+        return $this->paidMedia;
+    }
+
+    /**
+     * @param PaidMedia[]|null $paidMedia
+     */
+    public function setPaidMedia(?array $paidMedia): void
+    {
+        $this->paidMedia = $paidMedia;
     }
 }
