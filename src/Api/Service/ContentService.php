@@ -739,7 +739,7 @@ class ContentService extends BaseService
     }
 
     /**
-     * Use this method to send paid media to channel chats.
+     * Use this method to send paid media.
      * On success, the sent Message is returned.
      *
      * @see https://core.telegram.org/bots/api#sendpaidmedia
@@ -768,6 +768,7 @@ class ContentService extends BaseService
         bool $disableNotification = false,
         bool $protectContent = false,
         bool $showCaptionAboveMedia = false,
+        ?string $businessConnectionId = null,
         ?ReplyParameters $replyParameters = null,
         ?ArrayOfMessageEntity $captionEntities = null,
         InlineKeyboardMarkup|ReplyKeyboardRemove|ReplyKeyboardMarkup|ForceReply $replyMarkup = null,
@@ -779,6 +780,7 @@ class ContentService extends BaseService
             'caption' => $caption,
             'parse_mode' => $parseMode?->value,
             'caption_entities' => $captionEntities?->toJson(),
+            'business_connection_id' => $businessConnectionId,
             'show_caption_above_media' => $showCaptionAboveMedia,
             'disable_notification' => $disableNotification,
             'protect_content' => $protectContent,
