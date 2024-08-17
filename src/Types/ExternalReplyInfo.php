@@ -6,6 +6,7 @@ use TelegramBotSDK\BaseType;
 use TelegramBotSDK\TypeInterface;
 use TelegramBotSDK\Types\Game\Game;
 use TelegramBotSDK\Types\Payments\Invoice;
+use TelegramBotSDK\Types\Payments\PaidMediaInfo;
 use TelegramBotSDK\Types\Sticker\Sticker;
 
 /**
@@ -37,6 +38,7 @@ class ExternalReplyInfo extends BaseType implements TypeInterface
         'animation' => Animation::class,
         'audio' => Audio::class,
         'document' => Document::class,
+        'paid_media' => PaidMediaInfo::class,
         'photo' => ArrayOfPhotoSize::class,
         'sticker' => Sticker::class,
         'story' => Story::class,
@@ -104,6 +106,13 @@ class ExternalReplyInfo extends BaseType implements TypeInterface
      * @var Document|null
      */
     protected ?Document $document = null;
+
+    /**
+     * Optional. Message contains paid media; information about the paid media
+     *
+     * @var PaidMediaInfo|null
+     */
+    protected ?PaidMediaInfo $paidMedia = null;
 
     /**
      * Optional. Message is a photo, available sizes of the photo
@@ -364,6 +373,26 @@ class ExternalReplyInfo extends BaseType implements TypeInterface
     public function setDocument(?Document $document): void
     {
         $this->document = $document;
+    }
+
+    /**
+     * @return PaidMediaInfo|null
+     *
+     * @see $paidMedia
+     */
+    public function getPaidMedia(): ?PaidMediaInfo
+    {
+        return $this->paidMedia;
+    }
+
+    /**
+     * @param PaidMediaInfo|null $paidMedia
+     *
+     * @see $paidMedia
+     */
+    public function setPaidMedia(?PaidMediaInfo $paidMedia): void
+    {
+        $this->paidMedia = $paidMedia;
     }
 
     /**
