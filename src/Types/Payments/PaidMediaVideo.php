@@ -2,6 +2,7 @@
 
 namespace TelegramBotSDK\Types\Payments;
 
+use TelegramBotSDK\Enum\PaidMediaType;
 use TelegramBotSDK\Types\Video;
 
 /**
@@ -26,6 +27,13 @@ class PaidMediaVideo extends PaidMedia
         'type' => true,
         'video' => Video::class,
     ];
+
+    /**
+     * {@inheritdoc}
+     *
+     * @var PaidMediaType
+     */
+    protected PaidMediaType $type = PaidMediaType::Video;
 
     /**
      * The video

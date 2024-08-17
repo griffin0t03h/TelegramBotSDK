@@ -2,6 +2,7 @@
 
 namespace TelegramBotSDK\Types\Payments;
 
+use TelegramBotSDK\Enum\PaidMediaType;
 use TelegramBotSDK\Types\ArrayOfPhotoSize;
 use TelegramBotSDK\Types\PhotoSize;
 
@@ -27,6 +28,13 @@ class PaidMediaPhoto extends PaidMedia
         'type' => true,
         'photo' => ArrayOfPhotoSize::class,
     ];
+
+    /**
+     * {@inheritdoc}
+     *
+     * @var PaidMediaType
+     */
+    protected PaidMediaType $type = PaidMediaType::Photo;
 
     /**
      * The photo

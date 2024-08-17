@@ -2,6 +2,8 @@
 
 namespace TelegramBotSDK\Types\Payments;
 
+use TelegramBotSDK\Enum\PaidMediaType;
+
 /**
  * Class PaidMediaPreview
  * The paid media isn't available before the payment.
@@ -26,6 +28,13 @@ class PaidMediaPreview extends PaidMedia
         'height' => true,
         'duration' => true,
     ];
+
+    /**
+     * {@inheritdoc}
+     *
+     * @var PaidMediaType
+     */
+    protected PaidMediaType $type = PaidMediaType::Preview;
 
     /**
      * Optional. Media width as defined by the sender
