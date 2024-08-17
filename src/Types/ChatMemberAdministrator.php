@@ -2,6 +2,8 @@
 
 namespace TelegramBotSDK\Types;
 
+use TelegramBotSDK\Enum\ChatMemberStatus;
+
 /**
  * Class ChatMemberAdministrator
  * Represents a chat member that has some additional privileges.
@@ -43,6 +45,13 @@ class ChatMemberAdministrator extends ChatMember
         'can_manage_topics' => true,
         'custom_title' => true,
     ];
+
+    /**
+     * {@inheritdoc}
+     *
+     * @var ChatMemberStatus
+     */
+    protected ChatMemberStatus $status = ChatMemberStatus::Administrator;
 
     /**
      * True, if the bot is allowed to edit administrator privileges of that user
@@ -167,16 +176,6 @@ class ChatMemberAdministrator extends ChatMember
      * @var string|null
      */
     protected ?string $customTitle = null;
-
-    public static function fromResponse($data): ChatMemberAdministrator|static
-    {
-        self::validate($data);
-        /** @psalm-suppress UnsafeInstantiation */
-        $instance = new static();
-        $instance->map($data);
-
-        return $instance;
-    }
 
     /**
      * @return bool

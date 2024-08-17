@@ -30,12 +30,14 @@ abstract class ChatMember extends BaseType implements TypeInterface
         'status' => true,
         'user' => User::class,
     ];
+
     /**
      * The member's status in the chat
      *
      * @var ChatMemberStatus
      */
     protected ChatMemberStatus $status;
+
     /**
      * Information about the user
      *
@@ -44,23 +46,27 @@ abstract class ChatMember extends BaseType implements TypeInterface
     protected User $user;
 
     /**
-     * @psalm-suppress MoreSpecificReturnType,LessSpecificImplementedReturnType,LessSpecificReturnStatement
+     * @psalm-suppress LessSpecificReturnStatement,MoreSpecificReturnType
      * @throws InvalidArgumentException
      */
-    public static function fromResponse(array $data): ChatMemberLeft|ChatMemberAdministrator|ChatMemberRestricted|ChatMemberMember|ChatMember|ChatMemberOwner|static
+    public static function fromResponse(array $data): ChatMember|ChatMemberLeft|ChatMemberAdministrator|ChatMemberRestricted|ChatMemberMember|ChatMemberOwner|static
     {
         self::validate($data);
-        $status = $data['status'];
 
-        return match ($status) {
-            ChatMemberStatus::Creator->value => ChatMemberOwner::fromResponse($data),
-            ChatMemberStatus::Administrator->value => ChatMemberAdministrator::fromResponse($data),
-            ChatMemberStatus::Member->value => ChatMemberMember::fromResponse($data),
-            ChatMemberStatus::Restricted->value => ChatMemberRestricted::fromResponse($data),
-            ChatMemberStatus::Left->value => ChatMemberLeft::fromResponse($data),
-            ChatMemberStatus::Kicked->value => ChatMemberBanned::fromResponse($data),
-            default => throw new InvalidArgumentException("Unknown chat member status: $status"),
+        $class = match ($data['status']) {
+            ChatMemberStatus::Creator->value => ChatMemberOwner::class,
+            ChatMemberStatus::Administrator->value => ChatMemberAdministrator::class,
+            ChatMemberStatus::Member->value => ChatMemberMember::class,
+            ChatMemberStatus::Restricted->value => ChatMemberRestricted::class,
+            ChatMemberStatus::Left->value => ChatMemberLeft::class,
+            ChatMemberStatus::Kicked->value => ChatMemberBanned::class,
+            default => ChatMember::class,
         };
+
+        $instance = new $class();
+        $instance->map($data);
+
+        return $instance;
     }
 
     /**

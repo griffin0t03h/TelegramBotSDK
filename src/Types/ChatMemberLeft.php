@@ -2,6 +2,8 @@
 
 namespace TelegramBotSDK\Types;
 
+use TelegramBotSDK\Enum\ChatMemberStatus;
+
 /**
  * Class ChatMemberLeft
  * Represents a chat member that isn't currently a member of the chat, but may join it themselves.
@@ -10,13 +12,10 @@ namespace TelegramBotSDK\Types;
  */
 class ChatMemberLeft extends ChatMember
 {
-    public static function fromResponse($data): ChatMemberLeft|static
-    {
-        self::validate($data);
-        /** @psalm-suppress UnsafeInstantiation */
-        $instance = new static();
-        $instance->map($data);
-
-        return $instance;
-    }
+    /**
+     * {@inheritdoc}
+     *
+     * @var ChatMemberStatus
+     */
+    protected ChatMemberStatus $status = ChatMemberStatus::Left;
 }

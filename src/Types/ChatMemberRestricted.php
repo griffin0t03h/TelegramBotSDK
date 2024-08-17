@@ -2,6 +2,8 @@
 
 namespace TelegramBotSDK\Types;
 
+use TelegramBotSDK\Enum\ChatMemberStatus;
+
 /**
  * Class ChatMemberRestricted
  * Represents a chat member that is under certain restrictions in the chat. Supergroups only.
@@ -42,6 +44,13 @@ class ChatMemberRestricted extends ChatMember
         'can_manage_topics' => true,
         'until_date' => true,
     ];
+
+    /**
+     * {@inheritdoc}
+     *
+     * @var ChatMemberStatus
+     */
+    protected ChatMemberStatus $status = ChatMemberStatus::Restricted;
 
     /**
      * True, if the user is a member of the chat at the moment of the request
@@ -156,16 +165,6 @@ class ChatMemberRestricted extends ChatMember
      * @var int
      */
     protected int $untilDate;
-
-    public static function fromResponse($data): ChatMemberRestricted|static
-    {
-        self::validate($data);
-        /** @psalm-suppress UnsafeInstantiation */
-        $instance = new static();
-        $instance->map($data);
-
-        return $instance;
-    }
 
     /**
      * @return bool

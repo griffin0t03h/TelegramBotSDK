@@ -2,6 +2,8 @@
 
 namespace TelegramBotSDK\Types;
 
+use TelegramBotSDK\Enum\ChatMemberStatus;
+
 /**
  * Class ChatMemberMember
  * Represents a chat member that has no additional privileges or restrictions.
@@ -29,21 +31,18 @@ class ChatMemberMember extends ChatMember
     ];
 
     /**
+     * {@inheritdoc}
+     *
+     * @var ChatMemberStatus
+     */
+    protected ChatMemberStatus $status = ChatMemberStatus::Member;
+
+    /**
      * Optional. Date when the user's subscription will expire; Unix time
      *
      * @var int
      */
     protected int $untilDate;
-
-    public static function fromResponse($data): ChatMemberMember|static
-    {
-        self::validate($data);
-        /** @psalm-suppress UnsafeInstantiation */
-        $instance = new static();
-        $instance->map($data);
-
-        return $instance;
-    }
 
     /**
      * @return int
