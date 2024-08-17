@@ -15,7 +15,7 @@ use TelegramBotSDK\Enum\TransactionPartnerType;
 class TransactionPartnerOther extends TransactionPartner
 {
     /**
-     * Type of the transaction partner
+     * {@inheritdoc}
      *
      * @var TransactionPartnerType
      */

@@ -31,7 +31,7 @@ class TransactionPartnerUser extends TransactionPartner
     ];
 
     /**
-     * Type of the transaction partner
+     * {@inheritdoc}
      *
      * @var TransactionPartnerType
      */

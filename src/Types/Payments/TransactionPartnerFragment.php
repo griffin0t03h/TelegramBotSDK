@@ -28,7 +28,7 @@ class TransactionPartnerFragment extends TransactionPartner
     ];
 
     /**
-     * Type of the transaction partner
+     * {@inheritdoc}
      *
      * @var TransactionPartnerType
      */

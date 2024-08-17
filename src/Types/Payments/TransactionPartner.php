@@ -44,10 +44,10 @@ class TransactionPartner extends BaseType
         self::validate($data);
 
         $class = match ($data['source']) {
-            TransactionPartnerType::User->value => TransactionPartnerUser::fromResponse($data),
-            TransactionPartnerType::Fragment->value => TransactionPartnerFragment::fromResponse($data),
-            TransactionPartnerType::TelegramAds->value => TransactionPartnerTelegramAds::fromResponse($data),
-            TransactionPartnerType::Other->value => TransactionPartnerOther::fromResponse($data),
+            TransactionPartnerType::User->value => TransactionPartnerUser::class,
+            TransactionPartnerType::Fragment->value => TransactionPartnerFragment::class,
+            TransactionPartnerType::TelegramAds->value => TransactionPartnerTelegramAds::class,
+            TransactionPartnerType::Other->value => TransactionPartnerOther::class,
             default => TransactionPartner::class,
         };
 
