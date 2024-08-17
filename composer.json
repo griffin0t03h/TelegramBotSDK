@@ -1,0 +1,75 @@
+{
+    "name": "griffin0t03h/telegram-bot-sdk",
+    "description": "The Unofficial PHP SDK for the Telegram Bot API, designed to simplify the process of building and interacting with Telegram bots.",
+    "keywords": [
+        "php",
+        "telegram",
+        "bot",
+        "bot api"
+    ],
+    "homepage": "https://github.com/griffin0t03h/TelegramBotSDK",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Griffin T-3H",
+            "email": "griffin0t03h@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=8.2",
+        "ext-curl": "*",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "symfony/phpunit-bridge": "*",
+        "friendsofphp/php-cs-fixer": "~3.62",
+        "vimeo/psalm": "^5.25",
+        "psr/http-client": "^1.0",
+        "psr/http-factory": "^1.1",
+        "php-http/multipart-stream-builder": "^1.3",
+        "symfony/http-client": "^7.1",
+        "symfony/mime": "^7.1",
+        "guzzlehttp/guzzle": "^7.9"
+    },
+    "suggest": {
+        "psr/http-client": "To use psr/http-client",
+        "psr/http-factory": "To use psr/http-client",
+        "php-http/multipart-stream-builder": "To use psr/http-client",
+        "guzzlehttp/guzzle": "To use guzzlehttp/guzzle psr implementation",
+        "symfony/http-client": "To use symfony/http-client",
+        "symfony/mime": "To use symfony/http-client"
+    },
+    "autoload": {
+        "psr-4": {
+            "TelegramBotSDK\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "TelegramBotSDK\\Test\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/simple-phpunit --colors=always",
+        "coverage": "XDEBUG_MODE=coverage vendor/bin/simple-phpunit --coverage-html build/coverage",
+        "psalm": "vendor/bin/psalm",
+        "cs-fix": "vendor/bin/php-cs-fixer fix --allow-risky=yes --diff --ansi",
+        "cs-check": "vendor/bin/php-cs-fixer fix --allow-risky=yes --diff --ansi --dry-run --using-cache=no",
+        "checks": [
+            "@cs-fix",
+            "@psalm",
+            "@test"
+        ]
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": false
+        }
+    }
+}
