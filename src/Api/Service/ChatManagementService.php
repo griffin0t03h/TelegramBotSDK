@@ -48,7 +48,8 @@ class ChatManagementService extends BaseService
         int $userId,
         ?int $untilDate = null,
         ?bool $revokeMessages = null,
-    ): bool {
+    ): bool
+    {
         return $this->call('banChatMember', [
             'chat_id' => $chatId,
             'user_id' => $userId,
@@ -77,7 +78,8 @@ class ChatManagementService extends BaseService
         int|string $chatId,
         int $userId,
         ?bool $onlyIfBanned = null,
-    ): bool {
+    ): bool
+    {
         return $this->call('unbanChatMember', [
             'chat_id' => $chatId,
             'user_id' => $userId,
@@ -100,9 +102,9 @@ class ChatManagementService extends BaseService
      *                                current time, they are considered to be restricted forever
      * @param bool|null $useIndependentChatPermissions Pass True if chat permissions are set independently. Otherwise,
      *                                                 the can_send_other_messages and can_add_web_page_previews
-     *                                                 permissions will imply the can_send_messages, can_send_audios, can_send_documents, can_send_photos,
-     *                                                 can_send_videos, can_send_video_notes, and can_send_voice_notes permissions; the can_send_polls permission
-     *                                                 will imply the can_send_messages permission.
+     *                                                 permissions will imply the can_send_messages, can_send_audios,
+     *     can_send_documents, can_send_photos, can_send_videos, can_send_video_notes, and can_send_voice_notes
+     *     permissions; the can_send_polls permission will imply the can_send_messages permission.
      *
      * @return bool
      * @throws Exception|HttpException|InvalidJsonException
@@ -113,7 +115,8 @@ class ChatManagementService extends BaseService
         ChatPermissions $permissions,
         ?int $untilDate = null,
         ?bool $useIndependentChatPermissions = null,
-    ): bool {
+    ): bool
+    {
         return $this->call('restrictChatMember', [
             'chat_id' => $chatId,
             'user_id' => $userId,
@@ -175,7 +178,8 @@ class ChatManagementService extends BaseService
         bool $canEditMessages = true,
         bool $canPinMessages = true,
         bool $canManageTopics = true,
-    ): bool {
+    ): bool
+    {
         return $this->call('promoteChatMember', [
             'chat_id' => $chatId,
             'user_id' => $userId,
@@ -213,7 +217,8 @@ class ChatManagementService extends BaseService
         int|string $chatId,
         int $userId,
         string $customTitle,
-    ): bool {
+    ): bool
+    {
         return $this->call('setChatAdministratorCustomTitle', [
             'chat_id' => $chatId,
             'user_id' => $userId,
@@ -237,7 +242,8 @@ class ChatManagementService extends BaseService
     public function banChatSenderChat(
         int|string $chatId,
         int $senderChatId,
-    ): bool {
+    ): bool
+    {
         return $this->call('banChatSenderChat', [
             'chat_id' => $chatId,
             'sender_chat_id' => $senderChatId,
@@ -259,7 +265,8 @@ class ChatManagementService extends BaseService
     public function unbanChatSenderChat(
         int|string $chatId,
         int $senderChatId,
-    ): bool {
+    ): bool
+    {
         return $this->call('unbanChatSenderChat', [
             'chat_id' => $chatId,
             'sender_chat_id' => $senderChatId,
@@ -276,9 +283,9 @@ class ChatManagementService extends BaseService
      * @param ChatPermissions $permissions
      * @param bool|null $useIndependentChatPermissions Pass True if chat permissions are set independently. Otherwise,
      *                                                 the can_send_other_messages and can_add_web_page_previews
-     *                                                 permissions will imply the can_send_messages, can_send_audios, can_send_documents, can_send_photos,
-     *                                                 can_send_videos, can_send_video_notes, and can_send_voice_notes permissions; the can_send_polls permission
-     *                                                 will imply the can_send_messages permission.
+     *                                                 permissions will imply the can_send_messages, can_send_audios,
+     *     can_send_documents, can_send_photos, can_send_videos, can_send_video_notes, and can_send_voice_notes
+     *     permissions; the can_send_polls permission will imply the can_send_messages permission.
      *
      * @return bool
      * @throws Exception|HttpException|InvalidJsonException
@@ -287,7 +294,8 @@ class ChatManagementService extends BaseService
         int|string $chatId,
         ChatPermissions $permissions,
         ?bool $useIndependentChatPermissions = null,
-    ): bool {
+    ): bool
+    {
         return $this->call('setChatPermissions', [
             'chat_id' => $chatId,
             'permissions' => $permissions->toJson(),
@@ -338,7 +346,8 @@ class ChatManagementService extends BaseService
         int $expireDate = null,
         int $memberLimit = null,
         bool $createsJoinRequest = null,
-    ): ChatInviteLink {
+    ): ChatInviteLink
+    {
         return ChatInviteLink::fromResponse($this->call('createChatInviteLink', [
             'chat_id' => $chatId,
             'name' => $name,
@@ -437,6 +446,67 @@ class ChatManagementService extends BaseService
             'chat_id' => $chatId,
             'user_id' => $userId,
         ]);
+    }
+
+    /**
+     * Use this method to create a subscription invite link for a channel chat.
+     * The bot must have the can_invite_users administrator rights.
+     * The link can be edited using the method editChatSubscriptionInviteLink or revoked using the method
+     * revokeChatInviteLink.
+     *
+     * @see https://core.telegram.org/bots/api#createchatsubscriptioninvitelink
+     *
+     * @param int|string $chatId Unique identifier for the target channel chat or username of the target channel (in
+     *     the format @channelusername)
+     * @param int $subscriptionPeriod The number of seconds the subscription will be active for before the next
+     *     payment. Currently, it must always be 2592000 (30 days).
+     * @param int $subscriptionPrice The amount of Telegram Stars a user must pay initially and after each subsequent
+     *     subscription period to be a member of the chat; 1-2500
+     * @param string|null $name Invite link name; 0-32 characters
+     *
+     * @return ChatInviteLink
+     * @throws Exception|HttpException|InvalidArgumentException|InvalidJsonException
+     */
+    public function createChatSubscriptionInviteLink(
+        int|string $chatId,
+        int $subscriptionPeriod,
+        int $subscriptionPrice,
+        string $name = null,
+    ): ChatInviteLink
+    {
+        return ChatInviteLink::fromResponse($this->call('createChatSubscriptionInviteLink', [
+            'chat_id' => $chatId,
+            'name' => $name,
+            'subscription_period' => $subscriptionPeriod,
+            'subscription_price' => $subscriptionPrice
+        ]));
+    }
+
+    /**
+     * Use this method to edit a subscription invite link created by the bot. The bot must have the can_invite_users
+     * administrator rights.
+     *
+     * @see https://core.telegram.org/bots/api#editchatsubscriptioninvitelink
+     *
+     * @param int|string $chatId Unique identifier for the target chat or username of the target channel (in the format
+     * @channelusername)
+     * @param string $inviteLink The invite link to edit
+     * @param string|null $name Invite link name; 0-32 characters
+     *
+     * @return ChatInviteLink
+     * @throws Exception|HttpException|InvalidArgumentException|InvalidJsonException
+     */
+    public function editChatSubscriptionInviteLink(
+        int|string $chatId,
+        string $inviteLink,
+        string $name = null,
+    ): ChatInviteLink
+    {
+        return ChatInviteLink::fromResponse($this->call('editChatSubscriptionInviteLink', [
+            'chat_id' => $chatId,
+            'invite_link' => $inviteLink,
+            'name' => $name
+        ]));
     }
 
     /**
@@ -541,7 +611,8 @@ class ChatManagementService extends BaseService
         int $messageId,
         bool $disableNotification = false,
         ?string $businessConnectionId = null,
-    ): bool {
+    ): bool
+    {
         return $this->call('pinChatMessage', [
             'chat_id' => $chatId,
             'message_id' => $messageId,
@@ -569,7 +640,8 @@ class ChatManagementService extends BaseService
         int|string $chatId,
         int $messageId = null,
         ?string $businessConnectionId = null,
-    ): bool {
+    ): bool
+    {
         return $this->call('unpinChatMessage', [
             'chat_id' => $chatId,
             'message_id' => $messageId,
@@ -771,7 +843,8 @@ class ChatManagementService extends BaseService
         string $name,
         int $iconColor,
         int $iconCustomEmojiId = null,
-    ): ForumTopic {
+    ): ForumTopic
+    {
         return ForumTopic::fromResponse($this->call('createForumTopic', [
             'chat_id' => $chatId,
             'name' => $name,
@@ -800,7 +873,8 @@ class ChatManagementService extends BaseService
         int $messageThreadId,
         string $name,
         int $iconCustomEmojiId = null,
-    ): bool {
+    ): bool
+    {
         return $this->call('editForumTopic', [
             'chat_id' => $chatId,
             'message_thread_id' => $messageThreadId,
@@ -1066,7 +1140,8 @@ class ChatManagementService extends BaseService
     public function setMyDefaultAdministratorRights(
         ?ChatAdministratorRights $rights = null,
         ?bool $forChannels = null,
-    ): bool {
+    ): bool
+    {
         return $this->call('setMyDefaultAdministratorRights', [
             'rights' => $rights?->toJson(),
             'for_channels' => $forChannels,
