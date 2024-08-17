@@ -7,6 +7,7 @@ use TelegramBotSDK\TypeInterface;
 use TelegramBotSDK\Types\Game\Game;
 use TelegramBotSDK\Types\Inline\InlineKeyboardMarkup;
 use TelegramBotSDK\Types\Payments\Invoice;
+use TelegramBotSDK\Types\Payments\RefundedPayment;
 use TelegramBotSDK\Types\Payments\SuccessfulPayment;
 use TelegramBotSDK\Types\Sticker\Sticker;
 
@@ -90,6 +91,7 @@ class Message extends BaseType implements TypeInterface
         'pinned_message' => MaybeInaccessibleMessage::class,
         'invoice' => Invoice::class,
         'successful_payment' => SuccessfulPayment::class,
+        'refunded_payment' => RefundedPayment::class,
         'users_shared' => UsersShared::class,
         'chat_shared' => ChatShared::class,
         'connected_website' => true,
@@ -572,6 +574,14 @@ class Message extends BaseType implements TypeInterface
      * @var SuccessfulPayment|null
      */
     protected ?SuccessfulPayment $successfulPayment = null;
+
+    /**
+     * Optional. Message is a service message about a refunded payment, information about the payment.
+     * [More about payments](https://core.telegram.org/bots/api#payments)
+     *
+     * @var RefundedPayment|null
+     */
+    protected ?RefundedPayment $refundedPayment = null;
 
     /**
      * Optional. Service message: users were shared with the bot
@@ -1953,6 +1963,27 @@ class Message extends BaseType implements TypeInterface
     public function setSuccessfulPayment(?SuccessfulPayment $successfulPayment): void
     {
         $this->successfulPayment = $successfulPayment;
+    }
+
+    /**
+     * @return RefundedPayment|null
+     *
+     * @see $refundedPayment
+     */
+    public function getRefundedPayment(): ?RefundedPayment
+    {
+        return $this->refundedPayment;
+    }
+
+    /**
+     * @param RefundedPayment|null $refundedPayment
+     * @return void
+     *
+     * @see $refundedPayment
+     */
+    public function setRefundedPayment(?RefundedPayment $refundedPayment): void
+    {
+        $this->refundedPayment = $refundedPayment;
     }
 
     /**
