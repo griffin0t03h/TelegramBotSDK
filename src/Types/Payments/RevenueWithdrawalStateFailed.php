@@ -15,7 +15,7 @@ use TelegramBotSDK\Enum\RevenueWithdrawalStateType;
 class RevenueWithdrawalStateFailed extends RevenueWithdrawalState
 {
     /**
-     * Type of the state
+     * {@inheritdoc}
      *
      * @var RevenueWithdrawalStateType
      */

@@ -44,9 +44,9 @@ class RevenueWithdrawalState extends BaseType
         self::validate($data);
 
         $class = match ($data['source']) {
-            RevenueWithdrawalStateType::Pending->value => RevenueWithdrawalStatePending::fromResponse($data),
-            RevenueWithdrawalStateType::Succeeded->value => RevenueWithdrawalStateSucceeded::fromResponse($data),
-            RevenueWithdrawalStateType::Failed->value => RevenueWithdrawalStateFailed::fromResponse($data),
+            RevenueWithdrawalStateType::Pending->value => RevenueWithdrawalStatePending::class,
+            RevenueWithdrawalStateType::Succeeded->value => RevenueWithdrawalStateSucceeded::class,
+            RevenueWithdrawalStateType::Failed->value => RevenueWithdrawalStateFailed::class,
             default => RevenueWithdrawalState::class,
         };
 

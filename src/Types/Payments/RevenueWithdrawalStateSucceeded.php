@@ -29,7 +29,7 @@ class RevenueWithdrawalStateSucceeded extends RevenueWithdrawalState
     ];
 
     /**
-     * Type of the state
+     * {@inheritdoc}
      *
      * @var RevenueWithdrawalStateType
      */

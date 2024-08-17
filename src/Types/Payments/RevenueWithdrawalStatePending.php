@@ -15,7 +15,7 @@ use TelegramBotSDK\Enum\RevenueWithdrawalStateType;
 class RevenueWithdrawalStatePending extends RevenueWithdrawalState
 {
     /**
-     * Type of the state
+     * {@inheritdoc}
      *
      * @var RevenueWithdrawalStateType
      */
