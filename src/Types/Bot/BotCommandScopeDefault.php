@@ -14,7 +14,7 @@ use TelegramBotSDK\Enum\BotCommandScopeType;
 class BotCommandScopeDefault extends BotCommandScope
 {
     /**
-     * Scope type
+     * {@inheritdoc}
      *
      * @var BotCommandScopeType
      */

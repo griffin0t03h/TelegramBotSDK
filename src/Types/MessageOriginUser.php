@@ -2,6 +2,8 @@
 
 namespace TelegramBotSDK\Types;
 
+use TelegramBotSDK\Enum\MessageOriginType;
+
 /**
  * Class MessageOriginUser
  * The message was originally sent by a known user.
@@ -17,6 +19,13 @@ class MessageOriginUser extends MessageOrigin
         'date' => true,
         'sender_user' => User::class,
     ];
+
+    /**
+     * {@inheritdoc}
+     *
+     * @var MessageOriginType
+     */
+    protected MessageOriginType $type = MessageOriginType::User;
 
     /**
      * User that sent the message originally

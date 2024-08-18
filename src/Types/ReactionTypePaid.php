@@ -2,6 +2,8 @@
 
 namespace TelegramBotSDK\Types;
 
+use TelegramBotSDK\Enum\ReactionTypeEnum;
+
 /**
  * Class ReactionTypePaid
  * The reaction is paid.
@@ -10,4 +12,11 @@ namespace TelegramBotSDK\Types;
  */
 class ReactionTypePaid extends ReactionType
 {
+
+    /**
+     * {@inheritdoc}
+     *
+     * @var ReactionTypeEnum
+     */
+    protected ReactionTypeEnum $type = ReactionTypeEnum::Paid;
 }

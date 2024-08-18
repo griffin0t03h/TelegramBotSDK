@@ -3,6 +3,8 @@
 namespace TelegramBotSDK\Types;
 
 use TelegramBotSDK\BaseType;
+use TelegramBotSDK\Enum\ReactionTypeEnum;
+use TelegramBotSDK\InvalidArgumentException;
 use TelegramBotSDK\TypeInterface;
 
 /**
@@ -32,9 +34,30 @@ abstract class ReactionType extends BaseType implements TypeInterface
     /**
      * Type of the reaction
      *
-     * @var string
+     * @var ReactionTypeEnum
      */
-    protected string $type;
+    protected ReactionTypeEnum $type;
+
+    /**
+     * @psalm-suppress MoreSpecificReturnType,LessSpecificReturnStatement
+     * @throws InvalidArgumentException
+     */
+    public static function fromResponse(array $data): ReactionType|ReactionTypeEmoji|ReactionTypeCustomEmoji|ReactionTypePaid|static
+    {
+        self::validate($data);
+
+        $class = match ($data['type']) {
+            ReactionTypeEnum::Emoji->value => ReactionTypeEmoji::class,
+            ReactionTypeEnum::CustomEmoji->value => ReactionTypeCustomEmoji::class,
+            ReactionTypeEnum::Paid->value => ReactionTypePaid::class,
+            default => ReactionType::class,
+        };
+
+        $instance = new $class();
+        $instance->map($data);
+
+        return $instance;
+    }
 
     /**
      * Get the type of the reaction.

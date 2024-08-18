@@ -2,7 +2,7 @@
 
 namespace TelegramBotSDK\Types\InputMedia;
 
-use TelegramBotSDK\InvalidArgumentException;
+use TelegramBotSDK\Enum\InputMediaType;
 
 /**
  * Class InputMediaDocument
@@ -35,20 +35,11 @@ class InputMediaDocument extends InputMedia
     ];
 
     /**
-     * Type of the result, must be document
+     * {@inheritdoc}
      *
-     * @var string
+     * @var InputMediaType
      */
-    protected string $type = 'document';
-
-    /**
-     * File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL
-     * for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using
-     * multipart/form-data under <file_attach_name> name.
-     *
-     * @var string
-     */
-    protected string $media;
+    protected InputMediaType $type = InputMediaType::Document;
 
     /**
      * Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported
@@ -89,53 +80,6 @@ class InputMediaDocument extends InputMedia
      * @var bool|null
      */
     protected ?bool $disableContentTypeDetection = null;
-
-    /**
-     * @param array $data
-     * @return static
-     * @throws InvalidArgumentException
-     */
-    public static function fromResponse(array $data): static
-    {
-        self::validate($data);
-        /** @psalm-suppress UnsafeInstantiation */
-        $instance = new static();
-        $instance->map($data);
-
-        return $instance;
-    }
-
-    /**
-     * @return string
-     */
-    public function getType(): string
-    {
-        return $this->type;
-    }
-
-    /**
-     * @param string $type
-     */
-    public function setType(string $type): void
-    {
-        $this->type = $type;
-    }
-
-    /**
-     * @return string
-     */
-    public function getMedia(): string
-    {
-        return $this->media;
-    }
-
-    /**
-     * @param string $media
-     */
-    public function setMedia(string $media): void
-    {
-        $this->media = $media;
-    }
 
     /**
      * @return string|null

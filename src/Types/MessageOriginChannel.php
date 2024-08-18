@@ -2,6 +2,8 @@
 
 namespace TelegramBotSDK\Types;
 
+use TelegramBotSDK\Enum\MessageOriginType;
+
 /**
  * Class MessageOriginChannel
  * The message was originally sent to a channel chat.
@@ -19,6 +21,13 @@ class MessageOriginChannel extends MessageOrigin
         'message_id' => true,
         'author_signature' => true,
     ];
+
+    /**
+     * {@inheritdoc}
+     *
+     * @var MessageOriginType
+     */
+    protected MessageOriginType $type = MessageOriginType::Channel;
 
     /**
      * Channel chat to which the message was originally sent

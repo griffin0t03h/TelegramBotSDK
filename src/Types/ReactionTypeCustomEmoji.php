@@ -2,6 +2,8 @@
 
 namespace TelegramBotSDK\Types;
 
+use TelegramBotSDK\Enum\ReactionTypeEnum;
+
 /**
  * Class ReactionTypeCustomEmoji
  * This object describes a reaction based on a custom emoji.
@@ -26,6 +28,13 @@ class ReactionTypeCustomEmoji extends ReactionType
      * @var array
      */
     protected static array $requiredParams = ['type', 'custom_emoji_id'];
+
+    /**
+     * {@inheritdoc}
+     *
+     * @var ReactionTypeEnum
+     */
+    protected ReactionTypeEnum $type = ReactionTypeEnum::CustomEmoji;
 
     /**
      * Custom emoji identifier

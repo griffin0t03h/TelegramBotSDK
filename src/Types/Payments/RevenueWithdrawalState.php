@@ -5,6 +5,7 @@ namespace TelegramBotSDK\Types\Payments;
 use TelegramBotSDK\BaseType;
 use TelegramBotSDK\Enum\RevenueWithdrawalStateType;
 use TelegramBotSDK\InvalidArgumentException;
+use TelegramBotSDK\TypeInterface;
 
 /**
  * Class RevenueWithdrawalState
@@ -14,7 +15,7 @@ use TelegramBotSDK\InvalidArgumentException;
  *
  * @package TelegramBotSDK\Types\Payments
  */
-class RevenueWithdrawalState extends BaseType
+class RevenueWithdrawalState extends BaseType implements TypeInterface
 {
     /**
      * @var array
@@ -43,7 +44,7 @@ class RevenueWithdrawalState extends BaseType
     {
         self::validate($data);
 
-        $class = match ($data['source']) {
+        $class = match ($data['type']) {
             RevenueWithdrawalStateType::Pending->value => RevenueWithdrawalStatePending::class,
             RevenueWithdrawalStateType::Succeeded->value => RevenueWithdrawalStateSucceeded::class,
             RevenueWithdrawalStateType::Failed->value => RevenueWithdrawalStateFailed::class,

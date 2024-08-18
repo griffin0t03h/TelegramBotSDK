@@ -30,7 +30,7 @@ class BotCommandScopeChatAdministrators extends BotCommandScope
     ];
 
     /**
-     * Scope type
+     * {@inheritdoc}
      *
      * @var BotCommandScopeType
      */

@@ -13,7 +13,7 @@ use TelegramBotSDK\Enum\BotCommandScopeType;
 class BotCommandScopeAllGroupChats extends BotCommandScope
 {
     /**
-     * Scope type
+     * {@inheritdoc}
      *
      * @var BotCommandScopeType
      */

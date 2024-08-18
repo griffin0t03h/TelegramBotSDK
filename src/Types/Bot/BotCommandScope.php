@@ -4,6 +4,7 @@ namespace TelegramBotSDK\Types\Bot;
 
 use TelegramBotSDK\BaseType;
 use TelegramBotSDK\Enum\BotCommandScopeType;
+use TelegramBotSDK\InvalidArgumentException;
 use TelegramBotSDK\TypeInterface;
 
 /**
@@ -36,6 +37,30 @@ class BotCommandScope extends BaseType implements TypeInterface
      * @var BotCommandScopeType
      */
     protected BotCommandScopeType $type;
+
+    /**
+     * @psalm-suppress MoreSpecificReturnType,LessSpecificReturnStatement
+     * @throws InvalidArgumentException
+     */
+    public static function fromResponse(array $data): BotCommandScope|BotCommandScopeDefault|BotCommandScopeAllPrivateChats|BotCommandScopeAllGroupChats|BotCommandScopeAllChatAdministrators|BotCommandScopeChat|BotCommandScopeChatAdministrators|BotCommandScopeChatMember
+    {
+        self::validate($data);
+        $class = match ($data['type']) {
+            BotCommandScopeType::Default->value => BotCommandScopeDefault::class,
+            BotCommandScopeType::AllPrivateChats->value => BotCommandScopeAllPrivateChats::class,
+            BotCommandScopeType::AllGroupChats->value => BotCommandScopeAllGroupChats::class,
+            BotCommandScopeType::AllChatAdministrators->value => BotCommandScopeAllChatAdministrators::class,
+            BotCommandScopeType::Chat->value => BotCommandScopeChat::class,
+            BotCommandScopeType::ChatAdministrators->value => BotCommandScopeChatAdministrators::class,
+            BotCommandScopeType::ChatMember->value => BotCommandScopeChatMember::class,
+            default => BotCommandScope::class,
+        };
+
+        $instance = new $class();
+        $instance->map($data);
+
+        return $instance;
+    }
 
     /**
      * @return BotCommandScopeType
