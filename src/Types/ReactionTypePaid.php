@@ -12,7 +12,6 @@ use TelegramBotSDK\Enum\ReactionTypeEnum;
  */
 class ReactionTypePaid extends ReactionType
 {
-
     /**
      * {@inheritdoc}
      *

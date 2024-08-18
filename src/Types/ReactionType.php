@@ -62,9 +62,9 @@ abstract class ReactionType extends BaseType implements TypeInterface
     /**
      * Get the type of the reaction.
      *
-     * @return string
+     * @return ReactionTypeEnum
      */
-    public function getType(): string
+    public function getType(): ReactionTypeEnum
     {
         return $this->type;
     }
@@ -72,10 +72,14 @@ abstract class ReactionType extends BaseType implements TypeInterface
     /**
      * Set the type of the reaction.
      *
-     * @param string $type
+     * @param ReactionTypeEnum|string $type
      */
-    protected function setType(string $type): void
+    protected function setType(ReactionTypeEnum|string $type): void
     {
-        $this->type = $type;
+        if ($type instanceof ReactionTypeEnum) {
+            $this->type = $type;
+        } else {
+            $this->type = ReactionTypeEnum::tryFrom($type) ?? ReactionTypeEnum::Unknown;
+        }
     }
 }

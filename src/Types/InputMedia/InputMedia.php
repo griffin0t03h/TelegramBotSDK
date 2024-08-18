@@ -17,7 +17,6 @@ use TelegramBotSDK\TypeInterface;
  */
 class InputMedia extends BaseType implements TypeInterface, CollectionItemInterface
 {
-
     /**
      * Type of the result
      *

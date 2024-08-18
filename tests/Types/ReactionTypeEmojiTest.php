@@ -2,6 +2,7 @@
 
 namespace TelegramBotSDK\Test\Types;
 
+use TelegramBotSDK\Enum\ReactionTypeEnum;
 use TelegramBotSDK\Test\AbstractTypeTest;
 use TelegramBotSDK\Types\ReactionTypeEmoji;
 
@@ -15,7 +16,7 @@ class ReactionTypeEmojiTest extends AbstractTypeTest
     public static function getMinResponse(): array
     {
         return [
-            'type' => 'emoji',
+            'type' => ReactionTypeEnum::Emoji->value,
             'emoji' => '👍',
         ];
     }
@@ -35,7 +36,7 @@ class ReactionTypeEmojiTest extends AbstractTypeTest
      */
     protected function assertMinItem($item): void
     {
-        $this->assertEquals('emoji', $item->getType());
+        $this->assertEquals(ReactionTypeEnum::Emoji, $item->getType());
         $this->assertEquals('👍', $item->getEmoji());
     }
 
